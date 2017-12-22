@@ -1,0 +1,27 @@
+<% include partials/header %>
+
+    <h1><%= title %></h1>
+
+    <% if(errors){ %>
+      <ul>
+      <% errors.forEach(function(error){ %>
+        <li><%= error.msg %> </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  <h1>Sign up for updates</h1>
+  <form method="POST" action="/suscribers/add">
+    <label>Email</label>
+    <input type="text" name="email">
+    <br><br>
+    <input type ="submit" value="Submit">
+  </form>
+
+
+    <ul>
+    <% coins.forEach(function(coins){ %>
+      <li><%= coins.id %> <%= coins.price_usd %> </li>
+    <% }) %>
+  </ul>
+
+<% include partials/footer %>
