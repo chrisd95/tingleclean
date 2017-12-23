@@ -4,10 +4,23 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var expressValidator =  require('express-validator');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://admin:admin@ds163806.mlab.com:63806/tingleclean',['coins']);
-//dependencies and requires (END)
 var app = express();
 
+var router = express.Router();
+
+
+var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+var db = mongojs('mongodb://admin:admin@ds163656.mlab.com:63656/tingleclean3',['coins']);
+//dependencies and requires (END)
+var app = express();
+var limit10= require("./limit10")
+
+//REQUIRE MODELS (START)
+var Coin = require('./models/Coin.model');
+//REQUIRE MODELS (START)
+
+var publicDir = path.join(__dirname, 'views');
 // View Engine (START)
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname, 'views'));
@@ -58,11 +71,18 @@ var suscribers = [];
 var coins;
 
 
+
+
+
 // Main website GET (START)
-app.get('/', function(req, res){
+var refresh = app.get('/', function(req, res){
+
+  
   //render db
   db.coins.find(function (err,docs){
     console.log(docs)
+
+
     //render EJS
     res.render('index', {
         //render variables
@@ -72,6 +92,12 @@ app.get('/', function(req, res){
     });
   })
 });
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(publicDir, 'index.ejs'))
+})
+
+
 // Main website GET (END)
 
 // Catch suscribers (START)
