@@ -4,10 +4,9 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var expressValidator =  require('express-validator');
 var mongojs = require('mongojs');
-var db = mongojs('example', ['coins']);
+var db = mongojs('mongodb://admin:admin@ds163806.mlab.com:63806/tingleclean',['coins']);
 //dependencies and requires (END)
 var app = express();
-
 
 // View Engine (START)
 app.set('view engine', 'ejs');
@@ -48,6 +47,11 @@ app.use(expressValidator({
 // Set Static Path (EJS,CSS,jquery,etc.) (START)
 app.use(express.static(path.join(__dirname, 'public')))
 // Set Static Path (EJS,CSS,jquery,etc.) (END)
+
+// Get ALL coins
+
+
+
 
 
 var suscribers = [];
